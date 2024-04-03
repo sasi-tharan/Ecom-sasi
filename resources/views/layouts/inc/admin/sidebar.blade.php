@@ -87,6 +87,12 @@
                 <span class="menu-title">Banners</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.seasonal_banners.index') }}">
+                <i class="mdi mdi-image menu-icon"></i>
+                <span class="menu-title">Periodic Offers</span>
+            </a>
+        </li>
 
     </ul>
 </nav>

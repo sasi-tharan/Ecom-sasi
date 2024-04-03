@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('offer_banners', function (Blueprint $table) {
             $table->id();
+            $table->enum('offers', ['monthly_offers', 'weekly_offers', 'seasonal_offers']);
+            $table->string('image')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('offer_banners');
     }
 };

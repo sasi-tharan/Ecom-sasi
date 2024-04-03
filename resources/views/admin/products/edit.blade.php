@@ -106,7 +106,6 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">1 BCP</label>
-                                <input type="text" name="bcp_1" class="form
                                 <input type="text" name="bcp_1" class="form-control" value="{{ $product->bcp_1 }}" />
                             </div>
                             <div class="col-md-4 mb-3">
@@ -139,18 +138,30 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">Trending</label>
-                                <input type="checkbox" name="trending" style="width: 50px; height: 50px;" {{ $product->trending ? 'checked' : '' }}>
+                                <input type="checkbox" name="trending"  {{ $product->trending ? 'checked' : '' }}>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">Featured</label>
-                                <input type="checkbox" name="featured" style="width: 50px; height: 50px;" {{ $product->featured ? 'checked' : '' }}>
+                                <input type="checkbox" name="featured"  {{ $product->featured ? 'checked' : '' }}>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">Monthly Offer</label>
+                                <input type="checkbox" name="monthly_offer"  {{ $product->monthly_offer ? 'checked' : '' }}>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                                <label for="">Weekly Offer</label>
+                                <input type="checkbox" name="weekly_offer"  {{ $product->weekly_offer ? 'checked' : '' }}>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="">Seasonal Offer</label>
+                            <input type="checkbox" name="seasonal_offer"  {{ $product->seasonal_offer ? 'checked' : '' }}>
+                    </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">Status</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="">Select Status</option>
-                                    <option value="active" {{ $product->status == 'active' ? 'selected' : '' }}>Active</option>
-                                    <option value="inactive" {{ $product->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    <option value="1" {{ $product->status == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ $product->status == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                             <div class="col-md-6">

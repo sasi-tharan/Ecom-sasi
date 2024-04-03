@@ -137,18 +137,30 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                     <label for="">Trending</label>
-                                    <input type="checkbox" name="trending" style="width: 50px; height: 50px;">
+                                    <input type="checkbox" name="trending" >
                             </div>
                             <div class="col-md-4 mb-3">
                                     <label for="">Featured</label>
-                                    <input type="checkbox" name="featured" style="width: 50px; height: 50px;">
+                                    <input type="checkbox" name="featured" >
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">Monthly Offer</label>
+                                <input type="checkbox" name="monthly_offer" >
+                        </div>
+                        <div class="col-md-4 mb-3">
+                                <label for="">Weekly Offer</label>
+                                <input type="checkbox" name="weekly_offer" >
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="">Seasonal Offer</label>
+                            <input type="checkbox" name="seasonal_offer" >
+                    </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">Status</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="">Select Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                             </div>
                             <div class="col-md-6">

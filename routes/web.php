@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SubGroupController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SubGroupController;
-use App\Http\Controllers\Admin\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SeasonBannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/banners/{banner}/delete', 'destroy')->name('admin.banners.destroy');
     });
 
+    Route::controller(SeasonBannerController::class)->group(function () {
+        Route::get('seasonal_banners', 'index')->name('admin.seasonal_banners.index');
+        Route::get('/seasonal_banners/create', 'create')->name('admin.seasonal_banners.create');
+        Route::post('/seasonal_banners/create', 'store')->name('admin.seasonal_banners.store');
+        Route::get('/seasonal_banners/{seasonal_banner}/edit', 'edit')->name('admin.seasonal_banners.edit');
+        Route::put('/seasonal_banners/{seasonal_banner}', 'update')->name('admin.seasonal_banners.update');
+        Route::get('/seasonal_banners/{seasonal_banner}/delete', 'destroy')->name('admin.seasonal_banners.destroy');
+    });
+
     // Admin Group Route
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index')->name('admin.products.index'); // Define the index route
@@ -109,6 +119,8 @@ Route::prefix('admin')->group(function () {
         Route::put('/products/{product}', 'update')->name('admin.products.update'); // Add this line for update route
         Route::post('/products/import', 'import')->name('admin.products.import');
         Route::delete('/products/{product}', 'delete')->name('admin.products.delete');
+        Route::get('/products/filter', 'filter')->name('admin.products.filter');
+        Route::get('/products/autocomplete', 'autocomplete')->name('admin.products.autocomplete');
     });
 
     Route::post('/admin/products/import', [ProductController::class, 'import'])->name('admin.products.import');

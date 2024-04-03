@@ -40,6 +40,9 @@ class Product extends Model
         'status',
         'trending',
         'featured',
+        'monthly_offer', // Add monthly_offer to fillable fields
+        'weekly_offer', // Add weekly_offer to fillable fields
+        'seasonal_offer', // Add seasonal_offer to fillable fields
     ];
 
     protected $casts = [

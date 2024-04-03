@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\ProductExport;
-use App\Http\Controllers\Controller;
-use App\Imports\ProductImport;
-use App\Models\Department;
 use App\Models\Group;
 use App\Models\Product;
 use App\Models\SubGroup;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {
-        // Retrieve all products from the database with eager loading of departments and product images
-        $products = Product::with('department', 'productImages')->get();
+{
+    // Retrieve all products from the database with eager loading of departments and product images
+    $products = Product::with('department', 'productImages')->get();
 
-        // Pass the products to the view
-        return view('admin.products.index', compact('products'));
-    }
+    // Retrieve all departments and groups
+    $departments = Department::pluck('department_title');
+    $groups = Group::pluck('group_title');
+
+    // Pass the departments and groups to the view
+    return view('admin.products.index', compact('products', 'departments', 'groups'));
+}
 
     public function create()
     {
@@ -66,6 +70,9 @@ class ProductController extends Controller
             'status' => $request->status,
             'trending' => $request->trending == true ? '1' : '0',
             'featured' => $request->featured == true ? '1' : '0',
+            'monthly_offer' => $request->has('monthly_offer') ? 1 : 0,
+            'weekly_offer' => $request->has('weekly_offer') ? 1 : 0,
+            'seasonal_offer' => $request->has('seasonal_offer') ? 1 : 0,
         ]);
 
         // // Handle product thumbnails upload
@@ -142,6 +149,9 @@ class ProductController extends Controller
             'status' => $request->status,
             'trending' => $request->trending == true ? '1' : '0',
             'featured' => $request->featured == true ? '1' : '0',
+            'monthly_offer' => $request->has('monthly_offer') ? '1' : '0',
+            'weekly_offer' => $request->has('weekly_offer') ? '1' : '0',
+            'seasonal_offer' => $request->has('seasonal_offer') ? '1' : '0',
         ]);
 
         // Handle large image upload if a new image is provided
@@ -168,19 +178,18 @@ class ProductController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls',
+            'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
         $file = $request->file('file');
 
         try {
-            // Import Excel file data using Maatwebsite Excel
             Excel::import(new ProductImport, $file);
 
             // Log a success message
             Log::info('Product data imported successfully');
 
-            return redirect('/admin/products')->with('success', 'Product data imported successfully');
+            return redirect('admin/products')->with('success', 'Product data imported successfully');
         } catch (\Throwable $e) {
             // Log any exceptions that occur during the import process
             Log::error('Error importing product data: ' . $e->getMessage());
@@ -192,7 +201,8 @@ class ProductController extends Controller
 
     public function export()
     {
-        return Excel::download(new ProductExport(), 'products.xlsx');
+        // Generate and download the Excel file
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
 
     public function show(Product $product)
@@ -213,5 +223,62 @@ class ProductController extends Controller
         // Redirect back to the product index page
         return redirect('/admin/products');
     }
+
+    // public function filterProducts(Request $request)
+    // {
+    //     dd($request->all());
+    //     // Start building the query to fetch products
+    //     $query = Product::query();
+
+    //     // Filter products by department
+    //     if ($request->has('department')) {
+    //         $query->where('department_title', $request->department);
+    //     }
+
+    //     // Filter products by group
+    //     if ($request->has('group')) {
+    //         $query->where('group_title', $request->group);
+    //     }
+
+    //     // Filter products by SI/UPC
+    //     if ($request->has('si_upc')) {
+    //         $query->where('si_upc', $request->si_upc);
+    //     }
+
+    //     // Filter products by barcode/SKU
+    //     if ($request->has('barcode_sku')) {
+    //         $query->where('barcode_sku', $request->barcode_sku);
+    //     }
+
+    //     // Filter products by product name
+    //     if ($request->has('product_name')) {
+    //         $query->where('product_name', 'like', '%' . $request->product_name . '%');
+    //     }
+
+    //     // Filter products by offer types
+    //     $offerTypes = ['trending', 'featured', 'monthly_offer', 'weekly_offer', 'seasonal_offer'];
+    //     foreach ($offerTypes as $offerType) {
+    //         if ($request->has($offerType)) {
+    //             $query->where($offerType, true);
+    //         }
+    //     }
+
+    //   // Execute the query and fetch the products
+    // $products = $query->get();
+
+    // // Return the filtered products in JSON format
+    // return response()->json($products);
+    // }
+
+    public function autocomplete(Request $request)
+{
+    $query = $request->get('query');
+    $products = Product::where('product_name', 'like', '%' . $query . '%')->pluck('product_name');
+
+    return response()->json($products);
+}
+
+
+
 
 }
