@@ -75,19 +75,21 @@ class ProductController extends Controller
             'seasonal_offer' => $request->has('seasonal_offer') ? 1 : 0,
         ]);
 
-        // // Handle product thumbnails upload
-        // if ($request->hasFile('image')) {
-        //     foreach ($request->file('image') as $image) {
-        //         // Generate a unique filename for the image
-        //         $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        if ($request->hasFile('image')) {
+            $uploadPath = 'uploads/product_thumbnail/';
+            $i = 1;
+            foreach ($request->file('image') as $imageFile) {
+                $extension = $imageFile->getClientOriginalExtension();
+                $filename = time() . $i++ . '.' . $extension;
+                $imageFile->move($uploadPath, $filename);
+                $finalImagePathName = $uploadPath . $filename;
 
-        //         // Store the image with the generated filename
-        //         $path = $image->storeAs('uploads/product_thumbnail', $filename);
+                $product->productThumbnails()->create([
+                    'image' => $finalImagePathName,
+                ]);
+            }
+        }
 
-        //         // Create an entry in the database with the image path
-        //         $product->productThumbnails()->create(['image' => $path]);
-        //     }
-        // }
 
         // Handle large image upload
         if ($request->hasFile('large_image')) {
@@ -153,6 +155,25 @@ class ProductController extends Controller
             'weekly_offer' => $request->has('weekly_offer') ? '1' : '0',
             'seasonal_offer' => $request->has('seasonal_offer') ? '1' : '0',
         ]);
+
+        if ($request->hasFile('image')) {
+
+            $uploadPath = 'uploads/product_thumbnail/';
+
+            $i = 1;
+            foreach ($request->file('image') as $imageFile) {
+                $extention = $imageFile->getClientOriginalExtension();
+                $filename = time() . $i++ . '.' . $extention;
+                $imageFile->move($uploadPath, $filename);
+                $finalImagePathName = $uploadPath . $filename;
+
+                $product->productThumbnails()->create([
+                    'product_id' => $product->id,
+                    'image' => $finalImagePathName,
+
+                ]);
+            }
+        }
 
         // Handle large image upload if a new image is provided
         if ($request->hasFile('large_image')) {
@@ -224,51 +245,6 @@ class ProductController extends Controller
         return redirect('/admin/products');
     }
 
-    // public function filterProducts(Request $request)
-    // {
-    //     dd($request->all());
-    //     // Start building the query to fetch products
-    //     $query = Product::query();
-
-    //     // Filter products by department
-    //     if ($request->has('department')) {
-    //         $query->where('department_title', $request->department);
-    //     }
-
-    //     // Filter products by group
-    //     if ($request->has('group')) {
-    //         $query->where('group_title', $request->group);
-    //     }
-
-    //     // Filter products by SI/UPC
-    //     if ($request->has('si_upc')) {
-    //         $query->where('si_upc', $request->si_upc);
-    //     }
-
-    //     // Filter products by barcode/SKU
-    //     if ($request->has('barcode_sku')) {
-    //         $query->where('barcode_sku', $request->barcode_sku);
-    //     }
-
-    //     // Filter products by product name
-    //     if ($request->has('product_name')) {
-    //         $query->where('product_name', 'like', '%' . $request->product_name . '%');
-    //     }
-
-    //     // Filter products by offer types
-    //     $offerTypes = ['trending', 'featured', 'monthly_offer', 'weekly_offer', 'seasonal_offer'];
-    //     foreach ($offerTypes as $offerType) {
-    //         if ($request->has($offerType)) {
-    //             $query->where($offerType, true);
-    //         }
-    //     }
-
-    //   // Execute the query and fetch the products
-    // $products = $query->get();
-
-    // // Return the filtered products in JSON format
-    // return response()->json($products);
-    // }
 
     public function autocomplete(Request $request)
 {

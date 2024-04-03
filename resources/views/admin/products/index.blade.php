@@ -88,9 +88,6 @@
                     <table id="productsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" id="selectAllCheckbox">
-                                </th> <!-- Checkbox for selecting all -->
                                 <th>ID</th>
                                 <th>SI/UPC</th>
                                 <th>Department</th>
@@ -104,8 +101,6 @@
                         <tbody>
                             @forelse($products as $product)
                                 <tr>
-                                    <td><input type="checkbox" class="productCheckbox" name="selected_products[]"
-                                            value="{{ $product->id }}"></td> <!-- Checkbox for product selection -->
                                     <td>{{ $product->id }}</td>
                                     <td>{{ $product->si_upc }}</td>
                                     <td>{{ $product->department_title }}</td> <!-- Display department title -->
@@ -147,65 +142,17 @@
             </div>
         </div>
     </div>
-@endsection
-
-@push('scripts')
     <script>
         $(document).ready(function() {
-            // Add event listener to the "select all" checkbox
-            $('#selectAllCheckbox').change(function() {
-                // Get all checkboxes in the table body
-                var checkboxes = $('tbody input[type="checkbox"]');
-                // Set the checked property of each checkbox to match the "select all" checkbox
-                checkboxes.prop('checked', $(this).prop('checked'));
-            });
-
+            // Initialize DataTable on productsTable
+            $('#productsTable').DataTable();
         });
     </script>
 
-        <script>
-            $(document).ready(function() {
-                // Initialize DataTable on productsTable
-                $('#productsTable').DataTable();
-            });
-        </script>
+@endsection
 
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Function to handle autocomplete for product name
-            $('#product_name').keyup(function() {
-                var query = $(this).val();
-                if (query != '') {
-                    $.ajax({
-                        url: "{{ route('admin.products.autocomplete') }}",
-                        method: 'GET',
-                        data: {query: query},
-                        success: function(data) {
-                            var productsTableBody = $('#productsTable tbody');
-                            productsTableBody.empty(); // Clear previous table rows
-                            if (data.length > 0) {
-                                $.each(data, function(index, product) {
-                                    var row = $('<tr>');
-                                    row.append($('<td>').text(product.id)); // Product ID
-                                    row.append($('<td>').text(product.si_upc)); // SI/UPC
-                                    row.append($('<td>').text(product.department_title)); // Department
-                                    row.append($('<td>').text(product.barcode_sku)); // Barcode
-                                    row.append($('<td>').text(product.product_name)); // Product Name
-                                    row.append($('<td>').text(product.product_description)); // Description
-                                    row.append($('<td>').text(product.status ? 'Active' : 'Inactive')); // Status
-                                    productsTableBody.append(row); // Append the row to the table body
-                                });
-                            } else {
-                                var row = $('<tr>').append($('<td colspan="7">').text('No products found.'));
-                                productsTableBody.append(row); // Append the "No products found" message
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    </script> --}}
 
-@endpush
+
+
+

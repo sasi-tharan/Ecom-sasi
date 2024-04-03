@@ -26,7 +26,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table id="departmentsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -67,3 +67,11 @@
             </div>
         </div>
     @endsection
+    @push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable on departmentsTable
+            $('#departmentsTable').DataTable();
+        });
+    </script>
+@endpush
