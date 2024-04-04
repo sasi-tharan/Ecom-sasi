@@ -8,34 +8,16 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#roles-permissions" aria-expanded="false"
-                aria-controls="roles-permissions">
-                <i class="mdi mdi-account-key menu-icon"></i>
-                <span class="menu-title">User Management</span>
-                <i class="menu-arrow"></i>
+            <a class="nav-link" href="{{ route('admin.orders.index') }}">
+                <i class="mdi mdi-cart menu-icon"></i>
+                <span class="menu-title">Orders</span>
             </a>
-            <div class="collapse" id="roles-permissions">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/users') }}">
-                            <i class="mdi mdi-account menu-icon"></i>
-                            User List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/permissions') }}">
-                            <i class="mdi mdi-lock menu-icon"></i>
-                            Permissions List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/roles') }}">
-                            <i class="mdi mdi-account-group menu-icon"></i>
-                            Roles List
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.products.index') }}">
+                <i class="mdi mdi-package menu-icon"></i>
+                <span class="menu-title">Products</span>
+            </a>
         </li>
 
         <li class="nav-item">
@@ -68,12 +50,35 @@
                 </ul>
             </div>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.products.index') }}">
-                <i class="mdi mdi-cart menu-icon"></i>
-                <span class="menu-title">Products</span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#roles-permissions" aria-expanded="false"
+                aria-controls="roles-permissions">
+                <i class="mdi mdi-account-key menu-icon"></i>
+                <span class="menu-title">User Management</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="roles-permissions">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/users') }}">
+                            <i class="mdi mdi-account menu-icon"></i>
+                            User List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/permissions') }}">
+                            <i class="mdi mdi-lock menu-icon"></i>
+                            Permissions List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/roles') }}">
+                            <i class="mdi mdi-account-group menu-icon"></i>
+                            Roles List
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.sliders.index') }}">
@@ -89,10 +94,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.seasonal_banners.index') }}">
-                <i class="mdi mdi-image menu-icon"></i>
+                <i class="mdi mdi-calendar-star menu-icon"></i>
                 <span class="menu-title">Periodic Offers</span>
             </a>
         </li>
-
     </ul>
 </nav>

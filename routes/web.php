@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubGroupController;
@@ -119,11 +120,17 @@ Route::prefix('admin')->group(function () {
         Route::put('/products/{product}', 'update')->name('admin.products.update'); // Add this line for update route
         Route::post('/products/import', 'import')->name('admin.products.import');
         Route::delete('/products/{product}', 'delete')->name('admin.products.delete');
-        Route::get('/products/filter', 'filter')->name('admin.products.filter');
-        Route::get('/products/autocomplete', 'autocomplete')->name('admin.products.autocomplete');
+        // Route::get('/products/filter', 'filter')->name('admin.products.filter');
     });
 
     Route::post('/admin/products/import', [ProductController::class, 'import'])->name('admin.products.import');
     Route::get('/export-products', [ProductController::class, 'export'])->name('export.products');
+    Route::get('/admin/products/filter', [ProductController::class, 'filter'])->name('admin.products.filter');
+
+
+      // Admin Group Route
+      Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders', 'index')->name('admin.orders.index'); // Define the index route
+    });
 
 });

@@ -22,8 +22,7 @@
                             <!-- New form for importing user data -->
                             <div class="d-inline-block">
                                 <!-- Wrap form elements in a div with appropriate classes -->
-                                <form action="{{ route('admin.products.import') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('admin.products.import') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file" class="form-control">
                                     <br>
@@ -31,61 +30,50 @@
                                 </form>
                             </div>
                             <!-- Export Button -->
-                            <a href="{{ route('export.products') }}" class="btn btn-success btn-sm text-white me-2">
-                                Export
-                            </a>
+                            <a href="{{ route('export.products') }}" class="btn btn-success btn-sm text-white me-2">Export</a>
                             <!-- Refresh Button -->
-                            <button class="btn btn-info btn-sm text-white me-2" onclick="location.reload()">
-                                Refresh
-                            </button>
+                            <button class="btn btn-info btn-sm text-white me-2" onclick="location.reload()">Refresh</button>
                             <!-- Add Products Button -->
-                            <a href="{{ url('admin/products/create') }}" class="btn btn-primary btn-sm text-white me-2">
-                                Add Products
-                            </a>
+                            <a href="{{ url('admin/products/create') }}" class="btn btn-primary btn-sm text-white me-2">Add Products</a>
                         </div>
                     </h4>
-                    <!-- Filter options -->
-                    <form id="filterForm" method="GET" action="{{ route('admin.products.filter') }}">
-                        <div class="row mt-3">
+                </div>
+                <div class="card-body">
+                    <!-- Wrap form elements in a div with appropriate classes -->
+                    <form class="ml-2" id="filterForm" method="GET" enctype="multipart/form-data" action="{{ route('admin.products.filter') }}">
+                        @csrf
+                        <div class="row">
                             <!-- Department Select -->
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Department" name="department"
-                                    id="department">
+                                <input type="text" class="form-control" placeholder="Department" name="department_title" id="department">
                             </div>
                             <!-- Group Select -->
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Group" name="group"
-                                    id="group">
+                                <input type="text" class="form-control" placeholder="Group" name="group_title" id="group">
                             </div>
                             <!-- SI/UPC Input -->
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="SI/UPC" name="si_upc"
-                                    id="si_upc">
+                                <input type="text" class="form-control" placeholder="SI/UPC" name="si_upc" id="si_upc">
                             </div>
                             <!-- Barcode Input -->
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Barcode" name="barcode_sku"
-                                    id="barcode_sku">
+                                <input type="text" class="form-control" placeholder="Barcode" name="barcode_sku" id="barcode_sku">
                             </div>
                             <!-- Product Name Input -->
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Product Name" name="product_name"
-                                    id="product_name">
+                                <input type="text" class="form-control" placeholder="Product Name" name="product_name" id="product_name">
                             </div>
-                            <!-- Trending Checkbox -->
-                            <!-- Add your other form fields here -->
-
                             <!-- Apply Filter Button -->
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-primary">Apply Filter</button>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
-
                 <div class="card-body">
                     <table id="productsTable" class="table table-bordered table-striped">
+                        <!-- Table Headers (thead) -->
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -98,34 +86,32 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <!-- Table Body (tbody) -->
                         <tbody>
                             @forelse($products as $product)
                                 <tr>
                                     <td>{{ $product->id }}</td>
                                     <td>{{ $product->si_upc }}</td>
-                                    <td>{{ $product->department_title }}</td> <!-- Display department title -->
+                                    <td>{{ $product->department_title }}</td>
                                     <td>{{ $product->barcode_sku }}</td>
                                     <td>{{ $product->product_name }}</td>
                                     <td>{{ $product->product_description }}</td>
                                     <td>{{ $product->status ? 'Active' : 'Inactive' }}</td>
                                     <td>
+                                        <!-- Action Buttons -->
                                         <!-- View Icon -->
-                                        <a href="{{ route('admin.products.show', $product->id) }}" class="text-primary"
-                                            title="View">
+                                        <a href="{{ route('admin.products.show', $product->id) }}" class="text-primary" title="View">
                                             <i class="mdi mdi-eye"></i>
                                         </a>
                                         <!-- Edit Icon -->
-                                        <a href="{{ route('admin.products.edit', $product->id) }}" class="text-success"
-                                            title="Edit">
+                                        <a href="{{ route('admin.products.edit', $product->id) }}" class="text-success" title="Edit">
                                             <i class="mdi mdi-pencil"></i>
                                         </a>
                                         <!-- Delete Icon with Confirmation -->
-                                        <form action="{{ url('admin/products/' . $product->id) }}" method="POST"
-                                            style="display: inline;">
+                                        <form action="{{ url('admin/products/' . $product->id) }}" method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-danger" title="Delete"
-                                                onclick="return confirm('Are you sure you want to delete this product?')">
+                                            <button type="submit" class="text-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this product?')">
                                                 <i class="mdi mdi-delete"></i>
                                             </button>
                                         </form>
@@ -133,15 +119,14 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6">No products found.</td>
+                                    <td colspan="8">No products found.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
+
     <script>
         $(document).ready(function() {
             // Initialize DataTable on productsTable
@@ -150,9 +135,3 @@
     </script>
 
 @endsection
-
-
-
-
-
-

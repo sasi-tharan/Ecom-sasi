@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductExport;
+use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
+use App\Models\Department;
 use App\Models\Group;
 use App\Models\Product;
 use App\Models\SubGroup;
-use App\Models\Department;
 use Illuminate\Http\Request;
-use App\Exports\ProductExport;
-use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
-{
-    // Retrieve all products from the database with eager loading of departments and product images
-    $products = Product::with('department', 'productImages')->get();
+    {
+        // Retrieve all products from the database with eager loading of departments and product images
+        $products = Product::with('department', 'productImages')->get();
 
-    // Retrieve all departments and groups
-    $departments = Department::pluck('department_title');
-    $groups = Group::pluck('group_title');
+        // Retrieve all departments and groups
+        $departments = Department::pluck('department_title');
+        $groups = Group::pluck('group_title');
 
-    // Pass the departments and groups to the view
-    return view('admin.products.index', compact('products', 'departments', 'groups'));
-}
+        // Pass the departments and groups to the view
+        return view('admin.products.index', compact('products', 'departments', 'groups'));
+    }
 
     public function create()
     {
@@ -89,7 +89,6 @@ class ProductController extends Controller
                 ]);
             }
         }
-
 
         // Handle large image upload
         if ($request->hasFile('large_image')) {
@@ -245,14 +244,43 @@ class ProductController extends Controller
         return redirect('/admin/products');
     }
 
-
-    public function autocomplete(Request $request)
+    public function filter(Request $request)
 {
-    $query = $request->get('query');
-    $products = Product::where('product_name', 'like', '%' . $query . '%')->pluck('product_name');
+    $department = $request->input('department_title');
+    $group = $request->input('group_title');
+    $si_upc = $request->input('si_upc');
+    $barcode_sku = $request->input('barcode_sku');
+    $product_name = $request->input('product_name');
 
-    return response()->json($products);
+    // Start with a query to retrieve all products
+    $query = Product::query();
+
+    // Apply filters if they are provided
+    if ($department) {
+        $query->where('department_title', 'like', "%$department%");
+    }
+    if ($group) {
+        $query->where('group_title', 'like', "%$group%");
+    }
+    if ($si_upc) {
+        $query->where('si_upc', 'like', "%$si_upc%");
+    }
+    if ($barcode_sku) {
+        $query->where('barcode_sku', 'like', "%$barcode_sku%");
+    }
+    if ($product_name) {
+        $query->where('product_name', 'like', "%$product_name%");
+    }
+
+    // Fetch the products
+    $products = $query->get();
+
+    // Pass the filtered products data to the view
+    return view('admin.products.index', compact('products'));
 }
+
+
+
 
 
 
