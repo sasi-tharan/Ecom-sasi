@@ -73,6 +73,7 @@ class ProductController extends Controller
             'monthly_offer' => $request->has('monthly_offer') ? 1 : 0,
             'weekly_offer' => $request->has('weekly_offer') ? 1 : 0,
             'seasonal_offer' => $request->has('seasonal_offer') ? 1 : 0,
+            'new_arrivals' => $request->has('new_arrivals') ? 1 : 0,
         ]);
 
         if ($request->hasFile('image')) {
@@ -153,6 +154,7 @@ class ProductController extends Controller
             'monthly_offer' => $request->has('monthly_offer') ? '1' : '0',
             'weekly_offer' => $request->has('weekly_offer') ? '1' : '0',
             'seasonal_offer' => $request->has('seasonal_offer') ? '1' : '0',
+            'new_arrivals' => $request->has('new_arrivals') ? '1' : '0',
         ]);
 
         if ($request->hasFile('image')) {

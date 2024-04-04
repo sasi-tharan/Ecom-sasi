@@ -137,6 +137,10 @@
                                 <input type="text" name="por_3" class="form-control" value="{{ $product->por_3 }}" />
                             </div>
                             <div class="col-md-4 mb-3">
+                                <label for="">New Arrivals</label>
+                                <input type="checkbox" name="new_arrivals"  {{ $product->new_arrivals ? 'checked' : '' }}>
+                            </div>
+                            <div class="col-md-4 mb-3">
                                 <label for="">Trending</label>
                                 <input type="checkbox" name="trending"  {{ $product->trending ? 'checked' : '' }}>
                             </div>

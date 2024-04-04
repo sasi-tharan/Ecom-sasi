@@ -136,6 +136,10 @@
                                 <input type="text" name="por_3" class="form-control" />
                             </div>
                             <div class="col-md-4 mb-3">
+                                <label for="">New Arrivals</label>
+                                <input type="checkbox" name="new_arrivals" >
+                            </div>
+                            <div class="col-md-4 mb-3">
                                     <label for="">Trending</label>
                                     <input type="checkbox" name="trending" >
                             </div>

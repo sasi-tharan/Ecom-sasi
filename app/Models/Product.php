@@ -43,6 +43,7 @@ class Product extends Model
         'monthly_offer', // Add monthly_offer to fillable fields
         'weekly_offer', // Add weekly_offer to fillable fields
         'seasonal_offer', // Add seasonal_offer to fillable fields
+        'new_arrivals', // Add seasonal_offer to fillable fields
     ];
 
     protected $casts = [
