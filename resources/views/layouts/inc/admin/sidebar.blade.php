@@ -8,7 +8,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.orders.index') }}">
+            <a class="nav-link" href="{{ url('admin/errors') }}">
                 <i class="mdi mdi-cart menu-icon"></i>
                 <span class="menu-title">Orders</span>
             </a>
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/permissions') }}">
+                        <a class="nav-link" href="{{ url('admin/errors') }}">
                             <i class="mdi mdi-lock menu-icon"></i>
                             Permissions List
                         </a>
@@ -96,6 +96,12 @@
             <a class="nav-link" href="{{ route('admin.seasonal_banners.index') }}">
                 <i class="mdi mdi-calendar-star menu-icon"></i>
                 <span class="menu-title">Periodic Offers</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.featured_banners.index') }}">
+                <i class="mdi mdi-calendar-star menu-icon"></i>
+                <span class="menu-title">Featured Banner</span>
             </a>
         </li>
     </ul>

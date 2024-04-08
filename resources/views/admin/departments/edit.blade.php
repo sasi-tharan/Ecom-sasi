@@ -7,8 +7,8 @@
 
                 <div class="card-header">
                     <h4>
-                        Add Department
-                        <a href="{{url('admin/departments')}}" class="btn btn-primary btn-sm text-white float-end">Back</a>
+                        Edit Department
+                        <a href="{{url('admin/departments')}}" class="btn btn-success btn-sm text-white me-2">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-primary float-end">Update</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white me-2">Update</button>
                             </div>
                         </div>
 

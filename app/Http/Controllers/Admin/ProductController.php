@@ -40,6 +40,16 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // Validate the request data
+        $request->validate([
+            'department_title' => 'required',
+            'group_title' => 'required',
+            'sub_group_title' => 'required',
+            'si_upc' => 'required',
+            'barcode_sku' => 'required|unique:products|max:255',
+            'product_name' => 'required', // product_name is now required
+            // Add validation rules for other fields as needed
+        ]);
         // Create a new product with the validated data
         $product = Product::create([
             'department_id' => $request->department_id,
@@ -74,6 +84,8 @@ class ProductController extends Controller
             'weekly_offer' => $request->has('weekly_offer') ? 1 : 0,
             'seasonal_offer' => $request->has('seasonal_offer') ? 1 : 0,
             'new_arrivals' => $request->has('new_arrivals') ? 1 : 0,
+            'pt_dimension' => $request->pt_dimension,
+            'mi_dimension' => $request->mi_dimension,
         ]);
 
         if ($request->hasFile('image')) {
@@ -116,10 +128,16 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        // Validate the incoming request data
-        $request->validate([
-            // Add your validation rules here
-        ]);
+         // Validate the incoming request data
+    $request->validate([
+        'department_title' => 'required',
+        'group_title' => 'required',
+        'sub_group_title' => 'required',
+        'si_upc' => 'required',
+        'barcode_sku' => 'required|unique:products|max:255',
+        'product_name' => 'required', // product_name is now required
+        // Add validation rules for other fields as needed
+    ]);
 
         // Update the product with the validated data
         $product->update([
@@ -227,10 +245,10 @@ class ProductController extends Controller
         return Excel::download(new ProductExport, 'products.xlsx');
     }
 
-    public function show(Product $product)
-    {
-        return view('admin.products.show', compact('product'));
-    }
+    // public function show(Product $product)
+    // {
+    //     return view('admin.products.show', compact('product'));
+    // }
 
     public function delete(Product $product)
     {
@@ -247,44 +265,38 @@ class ProductController extends Controller
     }
 
     public function filter(Request $request)
-{
-    $department = $request->input('department_title');
-    $group = $request->input('group_title');
-    $si_upc = $request->input('si_upc');
-    $barcode_sku = $request->input('barcode_sku');
-    $product_name = $request->input('product_name');
+    {
+        $department = $request->input('department_title');
+        $group = $request->input('group_title');
+        $si_upc = $request->input('si_upc');
+        $barcode_sku = $request->input('barcode_sku');
+        $product_name = $request->input('product_name');
 
-    // Start with a query to retrieve all products
-    $query = Product::query();
+        // Start with a query to retrieve all products
+        $query = Product::query();
 
-    // Apply filters if they are provided
-    if ($department) {
-        $query->where('department_title', 'like', "%$department%");
+        // Apply filters if they are provided
+        if ($department) {
+            $query->where('department_title', 'like', "%$department%");
+        }
+        if ($group) {
+            $query->where('group_title', 'like', "%$group%");
+        }
+        if ($si_upc) {
+            $query->where('si_upc', 'like', "%$si_upc%");
+        }
+        if ($barcode_sku) {
+            $query->where('barcode_sku', 'like', "%$barcode_sku%");
+        }
+        if ($product_name) {
+            $query->where('product_name', 'like', "%$product_name%");
+        }
+
+        // Fetch the products
+        $products = $query->get();
+
+        // Pass the filtered products data to the view
+        return view('admin.products.index', compact('products'));
     }
-    if ($group) {
-        $query->where('group_title', 'like', "%$group%");
-    }
-    if ($si_upc) {
-        $query->where('si_upc', 'like', "%$si_upc%");
-    }
-    if ($barcode_sku) {
-        $query->where('barcode_sku', 'like', "%$barcode_sku%");
-    }
-    if ($product_name) {
-        $query->where('product_name', 'like', "%$product_name%");
-    }
-
-    // Fetch the products
-    $products = $query->get();
-
-    // Pass the filtered products data to the view
-    return view('admin.products.index', compact('products'));
-}
-
-
-
-
-
-
 
 }

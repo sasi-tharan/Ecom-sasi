@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h4>
                         Edit Group
-                        <a href="{{ url('admin/groups') }}" class="btn btn-primary btn-sm text-white float-end">Back</a>
+                        <a href="{{ url('admin/groups') }}" class="btn btn-success btn-sm text-white me-2">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -41,7 +41,7 @@
                                 <input type="checkbox" name="status" {{ $group->status == 1 ? 'checked' : '' }} />
                             </div>
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-primary float-end">Update</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white me-2">Update</button>
                             </div>
                         </div>
                     </form>

@@ -5,7 +5,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Edit Periodic Banner</h4>
+                <h4>
+                    Edit Periodic Banner
+                    <a href="{{url('admin/seasonal_banners')}}" class="btn btn-success btn-sm text-white me-2">Back</a>
+                </h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.seasonal_banners.update', $seasonal_banner->id) }}" method="POST" enctype="multipart/form-data">
@@ -20,6 +23,10 @@
                                 <option value="seasonal_offers" {{ $seasonal_banner->offers == 'seasonal_offers' ? 'selected' : '' }}>Seasonal Offers</option>
                             </select>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="">Dimension</label>
+                            <textarea name="dimension" id=""  class="form-control"  rows="3" {{ $seasonal_banner->dimension}}></textarea>
+                        </div>
                         <div class="col-md-6 mb-3">
                             <label for="">Image</label>
                             <input type="file" name="image" class="form-control" />
@@ -30,7 +37,7 @@
                             <input type="checkbox" name="status" {{ $seasonal_banner->status == '1' ? 'checked' : '' }} />
                         </div>
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-success btn-sm text-white me-2">Update</button>
                         </div>
                     </div>
                 </form>

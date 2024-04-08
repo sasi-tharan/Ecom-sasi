@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h4>
                         Add Product
-                        <a href="{{ url('admin/products') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
+                        <a href="{{ url('admin/products') }}" class="btn btn-success btn-sm text-white me-2">Back</a>
                     </h4>
                 </div>
 
@@ -27,15 +27,15 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label for="">SI / UPC</label>
+                                <label for="si_upc">SI / UPC *</label>
                                 <input type="text" name="si_upc" class="form-control" />
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="">Barcode / SKU</label>
+                                <label for="barcode_sku">Barcode / SKU *</label>
                                 <input type="text" name="barcode_sku" class="form-control" />
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="">Product Name</label>
+                                <label for="product_name">Product Name *</label>
                                 <input type="text" name="product_name" class="form-control" />
                             </div>
                             <div class="col-md-8 mb-3">
@@ -173,16 +173,24 @@
                                     <input type="file" multiple name="image[]" class="form-control" />
                                 </div>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">Product ThumbNail Dimension</label>
+                                <input type="text" name="pt_dimension" class="form-control" />
+                            </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="">Upload Main Product Image</label>
                                     <input type="file"  name="large_image" class="form-control" />
                                 </div>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">Product Main Image Dimension</label>
+                                <input type="text" name="mi_dimension" class="form-control" />
+                            </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12 text-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white me-2">Submit</button>
                             </div>
                         </div>
                     </form>

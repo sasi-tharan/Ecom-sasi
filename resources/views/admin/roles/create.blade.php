@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <h4>
                         Add Users
-                        <a href="{{ url('admin/roles') }}" class="btn btn-danger btn-sm text-white float-end">
+                        <a href="{{ url('admin/roles') }}" class="btn btn-success btn-sm text-white me-2">
                             back
                         </a>
                     </h4>
@@ -47,7 +47,7 @@
                                 </select>
                             </div>
                             <div class="col-md-12 text-end">
-                                <button type="submit" name="" class="btn btn-primary">Save</button>
+                                <button type="submit" name="" class="btn btn-success btn-sm text-white me-2">Save</button>
                             </div>
                         </div>
 

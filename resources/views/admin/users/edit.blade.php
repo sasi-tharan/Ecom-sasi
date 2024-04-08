@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <h4>
                         Edit User
-                        <a href="{{ url('admin/users') }}" class="btn btn-danger btn-sm text-white float-end">
+                        <a href="{{ url('admin/users') }}" class="btn btn-success btn-sm text-white me-2">
                             back
                         </a>
                     </h4>
@@ -42,20 +42,24 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">Password</label>
-                                <input type="text" name="password" class="form-control" />
+                                <input type="password" name="password" value="{{$user->password}}" class="form-control" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Role</label>
-                                <select name="user_type" class="form-control">
+                                <label for="role">Role</label>
+                                <select name="role" class="form-control" id="role">
                                     <option value="">Select Role</option>
-                                    <option value="user" {{$user->user_type == 'user' ? 'selected':''}}>User</option>
-                                    <option value="admin" {{$user->user_type == 'admin' ? 'selected':''}}>Admin</option>
-                                    <option value="staff" {{$user->user_type == 'staff' ? 'selected':''}}>Staff</option> <!-- Add this line if staff is also a valid user type -->
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" {{ $user->role == $role->id ? 'selected' : '' }}>
+                                            {{ $role->role_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
+
+
                             <div class="col-md-12 text-end">
-                                <button type="submit" name="" class="btn btn-primary">Update</button>
+                                <button type="submit" name="" class="btn btn-success btn-sm text-white me-2">Update</button>
                             </div>
                         </div>
 

@@ -14,67 +14,72 @@
             @show
         @endif
 
-
             <div class="card">
-
                 <div class="card-header">
                     <h4>
                         Users
-                        <a href="{{ url('admin/users/create') }}" class="btn btn-primary btn-sm text-white float-end">
+                        <a href="{{ url('admin/users/create') }}" class="btn btn-success btn-sm text-white me-2">
                             Add Users
                         </a>
-                        <button class="btn btn-info btn-sm text-white me-2" onclick="location.reload()">
+                        <button class="btn btn-success btn-sm text-white me-2" onclick="location.reload()">
                             Refresh
                         </button>
                     </h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table id="usersTable" class="table table-bordered table-striped" style="border: 1px solid black;">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>User Type</th>
-                                <th>Action</th>
+                                <th style="border: 1px solid black;">ID</th>
+                                <th style="border: 1px solid black;">Name</th>
+                                <th style="border: 1px solid black;">Email</th>
+                                <th style="border: 1px solid black;">Role</th>
+                                <th style="border: 1px solid black;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        @if ($user->user_type == 'user')
-                                            <label for="" class="badge btn-primary">User</label>
-                                        @elseif($user->user_type == 'admin')
-                                            <label for="" class="badge btn-success">Admin</label>
-                                        @elseif($user->user_type == 'staff')
-                                            <label for="" class="badge btn-info">Staff</label>
-                                        @else
-                                            <label for="" class="badge btn-primary">None</label>
-                                        @endif
-                                    </td>
-                                    <td>
+                            <tr style="border: 1px solid black;">
+                                <td style="border: 1px solid black;">{{ $user->id }}</td>
+                                <td style="border: 1px solid black;">{{ $user->name }}</td>
+                                <td style="border: 1px solid black;">{{ $user->email }}</td>
+                                <td style="border: 1px solid black;">
+                                    {{ $user->role ? $user->role : 'None' }}
+                                </td>
+                                <td style="border: 1px solid black;">
+                                    <!-- Action Buttons -->
+                                    <div class="btn-group" role="group">
+                                        <!-- Edit Icon -->
                                         <a href="{{ url('admin/users/' . $user->id . '/edit') }}" class="text-success" title="Edit">
-                                            <i class="mdi mdi-pencil"></i>
+                                            <i class="mdi mdi-pencil mdi-24px"></i>
                                         </a>
+                                        <!-- Delete Icon with Confirmation -->
                                         <a href="{{ url('admin/users/' . $user->id . '/delete') }}" onclick="return confirm('Are you sure you want to delete this data?')" class="text-danger" title="Delete">
-                                            <i class="mdi mdi-delete"></i>
+                                            <i class="mdi mdi-delete mdi-24px"></i>
                                         </a>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="5">No User Available</td>
-                                </tr>
+                            <tr style="border: 1px solid black;">
+                                <td colspan="5">No User Available</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
-                    <div>{{ $users->links() }}</div>
+
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable on usersTable
+            $('#usersTable').DataTable();
+        });
+    </script>
+
 @endsection
+
+
+

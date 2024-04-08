@@ -37,7 +37,7 @@ class SeasonBannerController extends Controller
             // You may set a default image path or any other desired behavior
             $data['image'] = ''; // Set a default value or leave it empty depending on your logic
         }
-
+        $data['dimension'] = $request->input('dimension');
         $data['offers'] = $request->input('offers'); // Assuming 'offers' is stored in the database
         // dd($data['offers']);
         $data['status'] = $request->has('status') ? '1' : '0';
@@ -61,6 +61,7 @@ class SeasonBannerController extends Controller
 
         $data = [
             'offers' => $request->input('offers'), // Corrected input name
+            'dimension' => $request->input('dimension'), // Corrected input name
             'status' => $request->has('status') ? '1' : '0',
         ];
 

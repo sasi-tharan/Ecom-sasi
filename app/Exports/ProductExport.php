@@ -14,8 +14,13 @@ class ProductExport implements FromCollection, WithHeadings
     public function collection()
     {
         // Fetch the product data from the database
-        return Product::with('subGroup')->get()->map(function ($product) {
+        return Product::with(['subGroup', 'group'])->get()->map(function ($product) {
             return [
+                'department_id' => $product->department_id,
+                'group_id' => $product->group_id,
+                'group_title' => $product->group->group_title, // Assuming the column name for group title is 'title'
+                'sub_group_id' => $product->sub_group_id,
+                'sub_group_title' => $product->subGroup->sub_group_title, // Assuming the column name for sub group title is 'title'
                 'si_upc' => $product->si_upc,
                 'barcode_sku' => $product->barcode_sku,
                 'department_title' => $product->department_title,
@@ -47,6 +52,11 @@ class ProductExport implements FromCollection, WithHeadings
     {
         // Define the column headings for the Excel file
         return [
+            'department_id',
+            'group_id',
+            'group_title',
+            'sub_group_id',
+            'sub_group_title',
             'si_upc',
             'barcode_sku',
             'department_title',

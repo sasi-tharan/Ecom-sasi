@@ -12,6 +12,7 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id',
         'large_image',
+        
     ];
 
     // Define the relationship with the Product model

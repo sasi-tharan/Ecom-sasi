@@ -16,10 +16,10 @@
                 <div class="card-header">
                     <h4>
                         Periodic Banner List
-                        <a href="{{ url('admin/seasonal_banners/create') }}" class="btn btn-primary btn-sm text-white float-end">
+                        <a href="{{ url('admin/seasonal_banners/create') }}" class="btn btn-success btn-sm text-white me-2">
                             Add Banner
                         </a>
-                        <button class="btn btn-info btn-sm text-white me-2" onclick="location.reload()">
+                        <button class="btn btn-success btn-sm text-white me-2" onclick="location.reload()">
                             Refresh
                         </button>
                     </h4>
@@ -28,37 +28,46 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Offer Title</th>
-                                <th>Image</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th style="border: 1px solid black;">ID</th>
+                                <th style="border: 1px solid black;">Offer Title</th>
+                                <th style="border: 1px solid black;">Dimension</th>
+                                <th style="border: 1px solid black;">Image</th>
+                                <th style="border: 1px solid black;">Status</th>
+                                <th style="border: 1px solid black;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($seasonalBanners as $banner)
                                 <tr>
-                                    <td>{{ $banner->id }}</td>
-                                    <td>{{ $banner->offers }}</td>
-                                    <td>
+                                    <td style="border: 1px solid black;">{{ $banner->id }}</td>
+                                    <td style="border: 1px solid black;">{{ $banner->offers }}</td>
+                                    <td style="border: 1px solid black;">{{ $banner->dimension }}</td>
+                                    <td style="border: 1px solid black;">
                                         <img src="{{ asset($banner->image) }}" style="width:70px; height:70px" alt="Banner">
                                     </td>
-                                    <td>{{ $banner->status == '1' ? 'Hidden' : 'Visible' }}</td>
-                                    <td>
-                                        <!-- Edit Icon -->
-                                        <a href="{{ route('admin.seasonal_banners.edit', $banner->id) }}" class="text-success" title="Edit">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                    <td style="border: 1px solid black;">{{ $banner->status == '1' ? 'Hidden' : 'Visible' }}</td>
+                                    <td style="border: 1px solid black;">
+                                        <div class="btn-group" role="group">
+                                            <!-- Edit Icon -->
+                                            <div>
+                                                <a href="{{ route('admin.seasonal_banners.edit', $banner->id) }}" class="text-success" title="Edit">
+                                                    <i class="mdi mdi-pencil mdi-24px"></i>
+                                                </a>
+                                            </div>
 
-                                        <!-- Delete Icon with Confirmation -->
-                                        <a href="{{ url('admin/seasonal_banners/' . $banner->id . '/delete') }}" onclick="return confirm('Are you sure you want to delete this?')" class="text-danger" title="Delete">
-                                            <i class="mdi mdi-delete"></i>
-                                        </a>
+                                            <!-- Delete Icon with Confirmation -->
+                                            <div>
+                                                <a href="{{ url('admin/seasonal_banners/' . $banner->id . '/delete') }}" onclick="return confirm('Are you sure you want to delete this?')" class="text-danger" title="Delete">
+                                                    <i class="mdi mdi-delete mdi-24px"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
                     {{-- <div>{{ $seasonalBanners->links() }}</div> --}}
                 </div>
             </div>

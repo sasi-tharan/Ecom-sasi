@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubGroupController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\SeasonBannerController;
+use App\Http\Controllers\Admin\FeaturedBannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('roles/{role_id}', 'destroy')->name('admin.roles.destroy');
 
     });
+
+
     Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');
@@ -110,12 +114,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/seasonal_banners/{seasonal_banner}/delete', 'destroy')->name('admin.seasonal_banners.destroy');
     });
 
+    Route::controller(FeaturedBannerController::class)->group(function () {
+        Route::get('featured_banners', 'index')->name('admin.featured_banners.index');
+        Route::get('/featured_banners/create', 'create')->name('admin.featured_banners.create');
+        Route::post('/featured_banners/create', 'store')->name('admin.featured_banners.store');
+        Route::get('/featured_banners/{featured_banner}/edit', 'edit')->name('admin.featured_banners.edit');
+        Route::put('/featured_banners/{featured_banner}', 'update')->name('admin.featured_banners.update');
+        Route::get('/featured_banners/{featured_banner}/delete', 'destroy')->name('admin.featured_banners.destroy');
+    });
+
     // Admin Group Route
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index')->name('admin.products.index'); // Define the index route
         Route::get('/products/create', 'create')->name('admin.products.create');
         Route::post('/products/create', 'store')->name('admin.products.store');
-        Route::get('/products/{product}', 'show')->name('admin.products.show'); // View product route
+        // Route::get('/products/{product}', 'show')->name('admin.products.show'); // View product route
         Route::get('/products/{product}/edit', 'edit')->name('admin.products.edit');
         Route::put('/products/{product}', 'update')->name('admin.products.update'); // Add this line for update route
         Route::post('/products/import', 'import')->name('admin.products.import');
@@ -132,5 +145,12 @@ Route::prefix('admin')->group(function () {
       Route::controller(OrderController::class)->group(function () {
         Route::get('/orders', 'index')->name('admin.orders.index'); // Define the index route
     });
+
+    Route::controller(PermissionController::class)->group(function () {
+        Route::get('errors', 'index')->name('admin.errors.index');
+    });
+
+
+
 
 });

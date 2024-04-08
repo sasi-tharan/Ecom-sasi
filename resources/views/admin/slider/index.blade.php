@@ -17,10 +17,10 @@
                 <div class="card-header">
                     <h4>
                         Slider List
-                        <a href="{{ url('admin/sliders/create') }}" class="btn btn-primary btn-sm text-white float-end">
+                        <a href="{{ url('admin/sliders/create') }}" class="btn btn-success btn-sm text-white me-2">
                             Add Slider
                         </a>
-                        <button class="btn btn-info btn-sm text-white me-2" onclick="location.reload()">
+                        <button class="btn btn-success btn-sm text-white me-2" onclick="location.reload()">
                             Refresh
                         </button>
                     </h4>
@@ -29,40 +29,46 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Slider Title</th>
-                                <th>Description </th>
-                                <th>Image</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th style="border: 1px solid black;">ID</th>
+                                <th style="border: 1px solid black;">Slider Title</th>
+                                <th style="border: 1px solid black;">Dimension</th>
+                                <th style="border: 1px solid black;">Image</th>
+                                <th style="border: 1px solid black;">Status</th>
+                                <th style="border: 1px solid black;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach ($sliders as $slider)
+                            @foreach ($sliders as $slider)
                                 <tr>
-                                    <td>{{ $slider->id }}</td>
-                                    <td>{{ $slider->title }}</td>
-                                    <td>{{ $slider->description }}</td>
-                                    <td>
-                                        <img src="{{asset("$slider->image")}}" style="width:70px; hieght:70px" alt="Slider">
+                                    <td style="border: 1px solid black;">{{ $slider->id }}</td>
+                                    <td style="border: 1px solid black;">{{ $slider->title }}</td>
+                                    <td style="border: 1px solid black;">{{ $slider->description }}</td>
+                                    <td style="border: 1px solid black;">
+                                        <img src="{{ asset($slider->image) }}" style="width:70px; height:70px" alt="Slider">
                                     </td>
-                                    <td>{{ $slider->status == '1' ? 'Hidden' : 'Visible' }}</td>
-                                    <td>
-                                        <!-- Edit Icon -->
-                                        <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="text-success" title="Edit">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
+                                    <td style="border: 1px solid black;">{{ $slider->status == '1' ? 'Hidden' : 'Visible' }}</td>
+                                    <td style="border: 1px solid black;">
+                                        <div class="btn-group" role="group">
+                                            <!-- Edit Icon -->
+                                            <div>
+                                                <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="text-success" title="Edit">
+                                                    <i class="mdi mdi-pencil mdi-24px"></i>
+                                                </a>
+                                            </div>
 
-                                        <!-- Delete Icon with Confirmation -->
-                                        <a href="{{ url('admin/sliders/' . $slider->id . '/delete') }}" onclick="return confirm('Are you sure you want to delete this?')" class="text-danger" title="Delete">
-                                            <i class="mdi mdi-delete"></i>
-                                        </a>
+                                            <!-- Delete Icon with Confirmation -->
+                                            <div>
+                                                <a href="{{ url('admin/sliders/' . $slider->id . '/delete') }}" onclick="return confirm('Are you sure you want to delete this?')" class="text-danger" title="Delete">
+                                                    <i class="mdi mdi-delete mdi-24px"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
-                        </table>
+                    </table>
+
                         {{-- <div>{{ $products->links() }}</div> --}}
                     </div>
                 </div>

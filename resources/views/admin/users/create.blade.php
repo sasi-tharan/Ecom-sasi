@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <h4>
                         Add Users
-                        <a href="{{ url('admin/users') }}" class="btn btn-danger btn-sm text-white float-end">
+                        <a href="{{ url('admin/users') }}" class="btn btn-success btn-sm text-white me-2">
                             back
                         </a>
                     </h4>
@@ -43,16 +43,16 @@
                                 <input type="text" name="password" class="form-control" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">Name</label>
-                                <select name="user_type" class="form-control">
+                                <label for="role">Role</label>
+                                <select name="role" class="form-control" id="role">
                                     <option value="">Select Role</option>
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="staff">Staff</option> <!-- Add this line if staff is also a valid user type -->
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12 text-end">
-                                <button type="submit" name="" class="btn btn-primary">Save</button>
+                                <button type="submit" name="" class="btn btn-success btn-sm text-white me-2">Save</button>
                             </div>
                         </div>
 

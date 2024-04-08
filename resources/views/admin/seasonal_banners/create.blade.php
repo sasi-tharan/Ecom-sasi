@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h4>
                         Add Periodic Banner
-                        <a href="{{url('admin/seasonal_banners')}}" class="btn btn-primary btn-sm text-white float-end">Back</a>
+                        <a href="{{url('admin/seasonal_banners')}}" class="btn btn-success btn-sm text-white me-2">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -17,12 +17,18 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label>Offers</label><br/>
-                                <select name="offers">
+                                <label for="offers">Offers</label><br/>
+                                <select name="offers" id="offers" class="form-control">
                                     <option value="monthly_offers">Monthly Offers</option>
                                     <option value="weekly_offers">Weekly Offers</option>
                                     <option value="seasonal_offers">Seasonal Offers</option>
+                                    <option value="trending_offers">Trending Offers</option>
+                                    <option value="promotional_offers">Promotional Offers</option>
                                 </select>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="">Dimension</label>
+                                <textarea name="dimension" id=""  class="form-control"  rows="3"></textarea>
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -35,7 +41,7 @@
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-primary float-end">Save</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white me-2">Save</button>
                             </div>
                         </div>
 

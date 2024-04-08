@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h4>
                         Edit Product
-                        <a href="{{ url('admin/products') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
+                        <a href="{{ url('admin/products') }}" class="btn btn-success btn-sm text-white me-2">Back</a>
                     </h4>
                 </div>
 
@@ -183,7 +183,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12 text-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white me-2">Submit</button>
                             </div>
                         </div>
                     </form>

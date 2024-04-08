@@ -14,5 +14,6 @@ class SeasonalBanner extends Model
         'offers',
         'image',
         'status',
+        'dimension',
     ];
 }
